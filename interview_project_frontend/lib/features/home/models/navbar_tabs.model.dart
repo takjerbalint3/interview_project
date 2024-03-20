@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:interview_project_frontend/core/colors.dart';
 import 'package:interview_project_frontend/core/router/router.dart';
 
 class NavbarTabs {
@@ -16,7 +17,13 @@ List<NavbarTabs> homeNavbarTabs() => [
             FeedRoute(),
           ],
         ),
-        bottomNavigationBarItem: const BottomNavigationBarItem(icon: Icon(Icons.auto_stories), label: "Feed"),
+        bottomNavigationBarItem: const BottomNavigationBarItem(
+          icon: Icon(
+            Icons.home_filled,
+            color: navbarIconColor,
+          ),
+          label: "Feed",
+        ),
       ),
       NavbarTabs(
         route: const ProductsTabRoute(
@@ -24,7 +31,14 @@ List<NavbarTabs> homeNavbarTabs() => [
             ProductsRoute(),
           ],
         ),
-        bottomNavigationBarItem: const BottomNavigationBarItem(icon: Icon(Icons.file_copy), label: "Products"),
+        bottomNavigationBarItem: const BottomNavigationBarItem(
+          icon: Icon(
+            Icons.shopping_bag,
+            color: navbarIconColor,
+            fill: 1,
+          ),
+          label: "Products",
+        ),
       ),
       NavbarTabs(
         route: const ProfileTabRoute(
@@ -32,6 +46,13 @@ List<NavbarTabs> homeNavbarTabs() => [
             ProfileRoute(),
           ],
         ),
-        bottomNavigationBarItem: const BottomNavigationBarItem(icon: Icon(Icons.info), label: "Profile"),
+        bottomNavigationBarItem: const BottomNavigationBarItem(
+          icon: Icon(
+            Icons.person,
+            color: navbarIconColor,
+            fill: 1,
+          ),
+          label: "Profile",
+        ),
       ),
     ];

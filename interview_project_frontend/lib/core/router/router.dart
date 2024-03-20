@@ -14,7 +14,7 @@ class AppRouter extends _$AppRouter {
   List<AutoRoute> get routes => [
         AutoRoute(
           page: HomeRoute.page,
-          path: '',
+          path: '/',
           children: [
             AutoRoute(
               page: ProductsTabRoute.page,
