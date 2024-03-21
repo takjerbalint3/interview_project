@@ -1,20 +1,14 @@
 # interview_project_frontend
 
-A new Flutter project.
+Interview project
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Change backend baseUrl if needed, which can be found at api_provider.dart 
+
+Developed with Flutter v3.7.2 - if something doesnt work, switch to this
 
 flutter packages pub run build_runner watch --delete-conflicting-outputs
 
 
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.

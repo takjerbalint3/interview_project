@@ -20,7 +20,7 @@ List<NavbarTabs> homeNavbarTabs() => [
         bottomNavigationBarItem: const BottomNavigationBarItem(
           icon: Icon(
             Icons.home_filled,
-            color: navbarIconColor,
+            color: AppColors.black,
           ),
           label: "Feed",
         ),
@@ -34,7 +34,7 @@ List<NavbarTabs> homeNavbarTabs() => [
         bottomNavigationBarItem: const BottomNavigationBarItem(
           icon: Icon(
             Icons.shopping_bag,
-            color: navbarIconColor,
+            color: AppColors.black,
             fill: 1,
           ),
           label: "Products",
@@ -49,8 +49,9 @@ List<NavbarTabs> homeNavbarTabs() => [
         bottomNavigationBarItem: const BottomNavigationBarItem(
           icon: Icon(
             Icons.person,
-            color: navbarIconColor,
+            color: AppColors.black,
             fill: 1,
+            size: 24,
           ),
           label: "Profile",
         ),

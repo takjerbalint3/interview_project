@@ -13,6 +13,8 @@ class FeedScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const Text("Feed");
+    return const SafeArea(
+      child: Text("feed"),
+    );
   }
 }

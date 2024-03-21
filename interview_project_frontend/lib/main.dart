@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'core/router/router.dart';
 
-void main() {
-  runApp(App());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(
+    ProviderScope(
+      child: App(),
+    ),
+  );
 }
 
 class App extends StatelessWidget {
@@ -15,8 +21,10 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       routerConfig: _appRouter.config(),
+      debugShowCheckedModeBanner: false,
       title: 'Interview Project',
       theme: ThemeData(
+        fontFamily: 'Roboto',
         useMaterial3: true,
         // This is the theme of your application.
         //

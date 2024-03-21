@@ -1,3 +1,7 @@
 import 'package:flutter/material.dart';
 
-const navbarIconColor = Color.fromRGBO(0, 0, 0, 1);
+class AppColors {
+  static const black = Color.fromRGBO(0, 0, 0, 1);
+  static const navbarBorder = Color.fromRGBO(0, 0, 0, 0.1);
+  static const priceColor = Color.fromRGBO(9, 93, 158, 1);
+}

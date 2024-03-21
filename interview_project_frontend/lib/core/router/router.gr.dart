@@ -158,8 +158,7 @@ class ProductDetailsRoute extends PageRouteInfo<ProductDetailsRouteArgs> {
 
   static const String name = 'ProductDetailsRoute';
 
-  static const PageInfo<ProductDetailsRouteArgs> page =
-      PageInfo<ProductDetailsRouteArgs>(name);
+  static const PageInfo<ProductDetailsRouteArgs> page = PageInfo<ProductDetailsRouteArgs>(name);
 }
 
 class ProductDetailsRouteArgs {

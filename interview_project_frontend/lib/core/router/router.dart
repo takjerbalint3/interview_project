@@ -18,7 +18,8 @@ class AppRouter extends _$AppRouter {
           children: [
             AutoRoute(
               page: ProductsTabRoute.page,
-              path: '',
+              path: 'products',
+              initial: true,
               children: [
                 AutoRoute(page: ProductsRoute.page, path: ''),
               ],

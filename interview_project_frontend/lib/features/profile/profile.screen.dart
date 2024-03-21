@@ -13,6 +13,8 @@ class ProfileScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const Text("PROFILE");
+    return const SafeArea(
+      child: Text("profile"),
+    );
   }
 }
