@@ -25,8 +25,9 @@ class Products extends _$Products {
   }
 
   //Could add limit as a parameter in the future
-  Future<void> loadNextPage({required num page}) async {
+  Future<int> loadNextPage({required num page}) async {
     final productsOnNextPage = await apiClient.pagineProductList(paginateProductListPayloadDto: PaginateProductListPayloadDTO(page: page, limit: 10));
     update((previousState) => [...previousState, ...productsOnNextPage]);
+    return productsOnNextPage.length;
   }
 }

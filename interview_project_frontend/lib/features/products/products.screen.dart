@@ -17,15 +17,35 @@ class ProductsTabScreen extends AutoRouter {
 @RoutePage()
 class ProductsScreen extends HookConsumerWidget {
   const ProductsScreen({Key? key}) : super(key: key);
-  static const _pageSize = 10;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final scrollController = useScrollController();
-
+    final page = useState(1);
+    final nextPageLoading = useState(false);
     useEffect(() {
-      scrollController.addListener(() => {});
-      return () => scrollController.removeListener(() => {});
-    }, [scrollController]);
+      void scrollListener() async {
+        if (scrollController.offset == scrollController.position.maxScrollExtent) {
+          nextPageLoading.value = true;
+          page.value++;
+          final newProducts = await ref.read(productsProvider.notifier).loadNextPage(page: page.value);
+
+          if (newProducts == 0) {
+            scrollController.removeListener(scrollListener);
+          }
+          //To make loading indicator visible for some time
+          await Future.delayed(const Duration(seconds: 1));
+          nextPageLoading.value = false;
+        }
+      }
+
+      scrollController.addListener(scrollListener);
+
+      // Remove the listener when the widget is disposed
+      return () {
+        scrollController.removeListener(scrollListener);
+      };
+    }, <Object>[scrollController]);
 
     final productList = ref.watch(productsProvider);
     return Scaffold(
@@ -46,20 +66,20 @@ class ProductsScreen extends HookConsumerWidget {
             if (data.isEmpty) {
               return _noItems(context);
             }
-            return _body(context, products: data, scrollController: scrollController);
+            return _body(context, products: data, scrollController: scrollController, nextPageLoading: nextPageLoading.value);
           },
           //handle error & loading states
           error: (error, stacktrace) {
             if (productList.hasValue) {
               //TODO show error message in snack message
 
-              return _body(context, products: productList.value!, scrollController: scrollController);
+              return _body(context, products: productList.value!, scrollController: scrollController, nextPageLoading: nextPageLoading.value);
             }
             return errorWidget(context, error: error as DioException, defaultErrorMessage: "Error loading products");
           },
           loading: () {
             if (productList.hasValue) {
-              return _body(context, products: productList.value!, scrollController: scrollController);
+              return _body(context, products: productList.value!, scrollController: scrollController, nextPageLoading: nextPageLoading.value);
             }
             return loading(context);
           },
@@ -81,19 +101,35 @@ class ProductsScreen extends HookConsumerWidget {
     );
   }
 
-  Widget _body(BuildContext context, {required List<ProductListDTO> products, required ScrollController scrollController}) {
-    return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisExtent: 362, mainAxisSpacing: 10, crossAxisSpacing: 10),
-      itemCount: products.length,
-      controller: scrollController,
-      shrinkWrap: true,
-      scrollDirection: Axis.vertical,
-      padding: const EdgeInsets.only(top: 12),
-      itemBuilder: (context, index) {
-        final product = products[index];
+  Widget _body(BuildContext context, {required List<ProductListDTO> products, required ScrollController scrollController, required bool nextPageLoading}) {
+    return Stack(
+      children: [
+        GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisExtent: 362, mainAxisSpacing: 10, crossAxisSpacing: 10),
+          itemCount: products.length,
+          controller: scrollController,
+          shrinkWrap: true,
+          scrollDirection: Axis.vertical,
+          padding: const EdgeInsets.only(top: 12),
+          itemBuilder: (context, index) {
+            final product = products[index];
 
-        return _productCard(context, product: product);
-      },
+            return _productCard(context, product: product);
+          },
+        ),
+        if (nextPageLoading == true)
+          Positioned(
+            bottom: 0,
+            height: 100,
+            width: MediaQuery.of(context).size.width,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                CircularProgressIndicator(),
+              ],
+            ),
+          ),
+      ],
     );
   }
 

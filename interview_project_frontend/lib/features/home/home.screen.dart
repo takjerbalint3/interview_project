@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:interview_project_frontend/core/colors.dart';
+import 'package:interview_project_frontend/core/router/router.dart';
 import 'package:interview_project_frontend/features/home/models/navbar_tabs.model.dart';
 
 @RoutePage()
@@ -30,6 +31,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           currentIndex: tabsRouter.activeIndex,
           onTap: (int index) {
             tabsRouter.setActiveIndex(index);
+
+            //not needed if ProductDetailsPage has leading in appbar
+            if (tabsRouter.topPage?.name == ProductDetailsRoute.name && index == 1) {
+              tabsRouter.childControllers[0].pop();
+            }
           },
           type: BottomNavigationBarType.fixed,
           fixedColor: AppColors.black,
