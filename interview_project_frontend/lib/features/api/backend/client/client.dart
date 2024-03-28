@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:interview_project_frontend/features/login/models/login.dto.model.dart';
 import 'package:interview_project_frontend/features/product_details/models/product.model.dart';
 import 'package:interview_project_frontend/features/products/models/paginate_product_list_payload.dto.model.dart';
 import 'package:interview_project_frontend/features/products/models/product_list.dto.model.dart';
@@ -19,4 +20,7 @@ abstract class ApiClient {
   Future<Product> getProduct({
     @Path() required String productId,
   });
+
+  @POST('/auth/login')
+  Future<String> login({@Body() required LoginDto loginDto});
 }

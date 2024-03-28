@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:interview_project_frontend/features/api/backend/api.dart';
+import 'package:interview_project_frontend/features/login/provider/login.provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'api_provider.g.dart';
@@ -19,6 +20,10 @@ Api api(
         return handler.next(e);
       },
       onRequest: (e, handler) async {
+        final jwtToken = ref.read(loginProvider).value;
+        if (jwtToken != null) {
+          e.headers['Authorization'] = 'Bearer $jwtToken';
+        }
         return handler.next(e);
       },
       onError: (e, handler) async {

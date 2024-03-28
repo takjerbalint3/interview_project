@@ -33,6 +33,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const HomeScreen(),
       );
     },
+    LoginRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const LoginScreen(),
+      );
+    },
     ProductsTabRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -46,7 +52,10 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     ProductDetailsRoute.name: (routeData) {
-      final args = routeData.argsAs<ProductDetailsRouteArgs>();
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<ProductDetailsRouteArgs>(
+          orElse: () => ProductDetailsRouteArgs(
+              productId: pathParams.getString('productId')));
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: ProductDetailsScreen(
@@ -113,6 +122,20 @@ class HomeRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [LoginScreen]
+class LoginRoute extends PageRouteInfo<void> {
+  const LoginRoute({List<PageRouteInfo>? children})
+      : super(
+          LoginRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'LoginRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [ProductsTabScreen]
 class ProductsTabRoute extends PageRouteInfo<void> {
   const ProductsTabRoute({List<PageRouteInfo>? children})
@@ -153,12 +176,14 @@ class ProductDetailsRoute extends PageRouteInfo<ProductDetailsRouteArgs> {
             key: key,
             productId: productId,
           ),
+          rawPathParams: {'productId': productId},
           initialChildren: children,
         );
 
   static const String name = 'ProductDetailsRoute';
 
-  static const PageInfo<ProductDetailsRouteArgs> page = PageInfo<ProductDetailsRouteArgs>(name);
+  static const PageInfo<ProductDetailsRouteArgs> page =
+      PageInfo<ProductDetailsRouteArgs>(name);
 }
 
 class ProductDetailsRouteArgs {
